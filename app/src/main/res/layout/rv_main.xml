@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_rv"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/rv_tv_data"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:textSize="28sp"
+        android:text="233333333333"
+        android:textColor="@color/black"
+        />
+
+    <Button
+        android:id="@+id/rv_btn_delete"
+        android:layout_width="100dp"
+        android:layout_height="48dp"
+        android:background="#FF4848"
+        android:text="删除"
+        android:textSize="20sp"
+        android:textColor="@color/white"/>
+
+</LinearLayout>
