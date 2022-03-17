@@ -5,16 +5,16 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
 class MyItemTouchHelperCallBack(private val itemTouchMoveListener: ItemTouchMoveListener) :ItemTouchHelper.Callback() {
-    private val mDefaultScrollX = 200
+    private val mDefaultScrollX = 275
 
     //当侧滑滑动的距离 / RecyclerView的宽大于该方法返回值，那么就会触发侧滑删除的操作
     override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
-        return 100f //设为最大值,目的是不触发系统原本的侧滑删除
+        return Int.MAX_VALUE.toFloat() //设为最大值,目的是不触发系统原本的侧滑删除
     }
 
     //当侧滑的速度大于该方法的返回值，也会触发侧滑删除的操作
     override fun getSwipeEscapeVelocity(defaultValue: Float): Float {
-        return 100f //设为最大值,目的是不触发系统原本的侧滑删除
+        return Int.MAX_VALUE.toFloat() //设为最大值,目的是不触发系统原本的侧滑删除
     }
 
     //获取移动的方向 dragFlags是拖动的方向 swipeFlags是滑动的方向
@@ -24,6 +24,8 @@ class MyItemTouchHelperCallBack(private val itemTouchMoveListener: ItemTouchMove
     ): Int {
         val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
         val swipeFlags = ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+
+        //创建运动标志的便捷方法。例如，如果您想让您的项目垂直拖放并向左滑动以关闭，您可以调用此方法： makeMovementFlags(UP | DOWN, LEFT);
         return makeMovementFlags(dragFlags, swipeFlags)
     }
 
@@ -50,7 +52,7 @@ class MyItemTouchHelperCallBack(private val itemTouchMoveListener: ItemTouchMove
     //item选择状态发生改变
     override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
         super.onSelectedChanged(viewHolder, actionState)
-        if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
+        if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) { //ACTION_STATE_IDLE:用户没有相关的运动事件，或最新的运动事件还没有触发滑动或拖动
             viewHolder?.itemView?.alpha = 0.5f
         }
     }

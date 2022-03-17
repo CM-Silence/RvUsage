@@ -19,7 +19,7 @@ import kotlin.collections.ArrayList
 class RvAdapter(private val dataList : ArrayList<RvData>,private val startDragListener: StartDrawListener) : RecyclerView.Adapter<RvAdapter.InnerHolder>(), ItemTouchMoveListener{
 
     companion object{
-        public var buttonWidth : Int = 0
+        var buttonWidth : Int = 0
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RvAdapter.InnerHolder {
@@ -27,6 +27,9 @@ class RvAdapter(private val dataList : ArrayList<RvData>,private val startDragLi
     }
 
     override fun onBindViewHolder(holder: RvAdapter.InnerHolder, position: Int) {
+        if(buttonWidth != 0) {
+            buttonWidth = holder.mBtnDelete.width
+        }
         holder.mTvData.text = dataList[position].data
     }
 
@@ -49,11 +52,11 @@ class RvAdapter(private val dataList : ArrayList<RvData>,private val startDragLi
     @SuppressLint("ClickableViewAccessibility")
     inner class InnerHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val mTvData: TextView = itemView.findViewById(R.id.rv_tv_data)
-        private val mBtnDelete: Button = itemView.findViewById(R.id.rv_btn_delete)
+        val mBtnDelete: Button = itemView.findViewById(R.id.rv_btn_delete)
         private val mLinearLayout: LinearLayout = itemView.findViewById(R.id.main_rv)
 
         init{
-            buttonWidth = mBtnDelete.scrollX
+            mTvData.text = buttonWidth.toString()
             mLinearLayout.setOnTouchListener(View.OnTouchListener { view: View, motionEvent: MotionEvent ->
                 if(motionEvent.action == MotionEvent.ACTION_POINTER_DOWN){
                     startDragListener.onStartDrag(this);
